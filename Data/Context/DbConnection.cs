@@ -18,11 +18,10 @@ namespace Data.Context
             _appSettings = appSettings;
         }
 
-        public override int SaveChanges()
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             AddTimestamps();
-            AddSoftDelete();
-            return base.SaveChanges();
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -43,18 +42,6 @@ namespace Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DbConnection).Assembly);
-        }
-
-        private void AddSoftDelete()
-        {
-            var entities = ChangeTracker.Entries()
-                .Where(e => e.Entity is Entity && e.State == EntityState.Deleted);
-            foreach (var entity in entities)
-            {
-                var now = DateTime.UtcNow;
-                entity.State = EntityState.Modified;
-                ((Entity)entity.Entity).DeletedAt = now;
-            }
         }
 
         private void AddTimestamps()

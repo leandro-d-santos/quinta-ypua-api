@@ -32,9 +32,7 @@ namespace Domain.Users.Repositories
         public User? FindByUserName(string userName)
         {
             Check.ThrowIfNull(userName, nameof(userName));
-            UserEntity? user = context.Set<UserEntity>()
-                .AsNoTracking()
-                .SingleOrDefault(e => e.UserName == userName);
+            UserEntity? user = FindUserEntityByUserName(userName);
             if (user is null)
             {
                 return null;
@@ -45,7 +43,13 @@ namespace Domain.Users.Repositories
         public void Update(User user)
         {
             Check.ThrowIfNull(user, nameof(user));
-            UserEntity entity = UserEntity.CreateFromModel(user);
+            UserEntity? entity = FindUserEntityByUserName(user.UserName);
+            if (entity is null)
+            {
+                return;
+            }
+            entity.Name = user.Name;
+            entity.Email = user.Email;
             context.Set<UserEntity>().Update(entity);
         }
 
@@ -54,6 +58,13 @@ namespace Domain.Users.Repositories
             Check.ThrowIfNull(user, nameof(user));
             UserEntity entity = UserEntity.CreateFromModel(user);
             context.Set<UserEntity>().Remove(entity);
+        }
+
+        private UserEntity? FindUserEntityByUserName(string userName)
+        {
+            return context.Set<UserEntity>()
+                .AsNoTracking()
+                .SingleOrDefault(e => e.UserName == userName);
         }
     }
 }

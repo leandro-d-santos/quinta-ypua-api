@@ -10,7 +10,6 @@ namespace Data.Common
         {
             builder.Property(p => p.CreatedAt).HasColumnName("createdAt");
             builder.Property(p => p.UpdatedAt).HasColumnName("updatedAt");
-            builder.Property(p => p.DeletedAt).HasColumnName("deletedAt");
         }
     }
 }
