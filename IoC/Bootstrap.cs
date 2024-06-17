@@ -1,6 +1,7 @@
 ﻿using Data.Common;
 using Data.Context;
 using Domain.Common.Data;
+using IoC.Guests;
 using IoC.Rooms;
 using IoC.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace IoC
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddUsers();
             services.AddRooms();
+            services.AddGuests();
         }
     }
 }
