@@ -17,6 +17,8 @@ namespace Data.Guests.Mappings
             builder.Property(p => p.PhoneNumber).HasColumnName("phoneNumber").HasMaxLength(22).IsRequired();
             MappingHelper.ConfigureOperationColumns(builder);
             builder.HasKey(p => p.Id);
+            builder.HasOne(e => e.Reservation)
+                .WithOne(e => e.Guest);
         }
     }
 }

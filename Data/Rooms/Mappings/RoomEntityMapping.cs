@@ -17,6 +17,8 @@ namespace Data.Rooms.Mappings
             builder.Property(p => p.Capacity).HasColumnName("capacity").IsRequired();
             MappingHelper.ConfigureOperationColumns(builder);
             builder.HasKey(p => p.Id);
+            builder.HasOne(e => e.Reservation)
+                .WithOne(e => e.Room);
         }
     }
 }

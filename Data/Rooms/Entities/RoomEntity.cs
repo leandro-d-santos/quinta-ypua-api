@@ -1,4 +1,5 @@
 ﻿using Data.Common.Entities;
+using Data.Reservations.Entities;
 using Domain.Rooms.Models;
 
 namespace Data.Rooms.Entities
@@ -11,6 +12,15 @@ namespace Data.Rooms.Entities
         public string Floor { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int Capacity { get; set; }
+
+        public ReservationEntity Reservation { get; set; } = null;
+
+        public RoomEntity() { }
+
+        public RoomEntity(Guid id)
+        {
+            Id = id.ToString();
+        }
 
         public static RoomEntity CreateFromModel(Room room)
         {

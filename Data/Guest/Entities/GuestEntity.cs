@@ -1,4 +1,5 @@
 ﻿using Data.Common.Entities;
+using Data.Reservations.Entities;
 using Domain.Guests.Models;
 
 namespace Data.Guests.Entities
@@ -10,6 +11,14 @@ namespace Data.Guests.Entities
         public string Email { get; set; } = string.Empty;
         public string CPF { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
+        public ReservationEntity Reservation { get; set; } = null;
+
+        public GuestEntity() { }
+
+        public GuestEntity(Guid id)
+        {
+            Id = id.ToString();
+        }
 
         public static GuestEntity CreateFromModel(Guest guest)
         {
