@@ -11,6 +11,7 @@ namespace Api.Core
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
             Bootstrap.RegisterServices(builder.Services);
             builder.Services.AddControllers();
+            builder.Services.AddCorsSettings();
             builder.Services.AddSwagger();
             builder.Services.AddMiddlewares();
             builder.Services.AddSingleton<IAppSettings, AppSettings>();

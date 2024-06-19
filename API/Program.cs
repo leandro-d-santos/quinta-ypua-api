@@ -9,6 +9,7 @@ namespace Api
         {
             var app = CreateWebApplication.Create(args);
             app.Setup();
+            app.UseCorsSettings();
             app.Run();
         }
     }
