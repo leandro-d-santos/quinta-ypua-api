@@ -36,7 +36,7 @@ namespace Api.Reservations.Controllers
             return Ok(await reservationService.FindByIdAsync(id));
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] ReservationViewModel reservationViewModel)
         {

@@ -36,7 +36,7 @@ namespace Api.Rooms.Controllers
             return Ok(await roomService.FindByIdAsync(id));
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] RoomViewModel roomViewModel)
         {

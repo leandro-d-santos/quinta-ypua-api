@@ -9,6 +9,16 @@
     }
   },
   "profiles": {
+    "Teste": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/swagger",
+      "applicationUrl": "http://localhost:32767",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING_NAME": "SQLITE_DEV"
+      }
+    },
     "Development": {
       "commandName": "IISExpress",
       "launchBrowser": true,

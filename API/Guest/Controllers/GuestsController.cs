@@ -36,7 +36,7 @@ namespace Api.Guests.Controllers
             return Ok(await guestService.FindByIdAsync(id));
         }
 
-        [Route("")]
+        [Route("{id}")]
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] GuestViewModel guestViewModel)
         {

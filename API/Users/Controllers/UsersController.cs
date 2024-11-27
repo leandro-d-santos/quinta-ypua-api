@@ -36,7 +36,7 @@ namespace Api.Users.Controllers
             return Ok(await userService.FindByUserNameAsync(userName));
         }
 
-        [Route("")]
+        [Route("{userName}")]
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] UserViewModel userViewModel)
         {
