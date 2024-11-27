@@ -19,6 +19,7 @@ namespace IoC
             services.AddRooms();
             services.AddGuests();
             services.AddReservations();
+            services.RunMigrations();
         }
     }
 }

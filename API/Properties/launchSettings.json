@@ -16,7 +16,7 @@
       "launchUrl": "api/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING_NAME": "POSTGRESQL_DEV"
+        "CONNECTION_STRING_NAME": "SQLITE_DEV"
       }
     }
   }
