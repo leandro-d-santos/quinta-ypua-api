@@ -1,5 +1,6 @@
 ﻿using Application.Reservations.ViewModels;
 using Domain.Common.Data;
+using Domain.Financial.Repositories;
 using Domain.Reservations.Models;
 using Domain.Reservations.Repositories;
 
@@ -8,12 +9,16 @@ namespace Application.Reservations.Services
     public sealed class ReservationService : IReservationService
     {
         private readonly IReservationRepository reservationRepository;
+        private readonly IFinancialRepository financialRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public ReservationService(IReservationRepository reservationRepository,
+        public ReservationService(
+            IReservationRepository reservationRepository,
+            IFinancialRepository financialRepository,
             IUnitOfWork unitOfWork)
         {
             this.reservationRepository = reservationRepository;
+            this.financialRepository = financialRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -22,6 +27,13 @@ namespace Application.Reservations.Services
             Reservation reservation = TransformToModel(reservationViewModel);
             reservation.Id = Guid.NewGuid();
             reservationRepository.Add(reservation);
+            financialRepository.Create(new Domain.Financial.Models.Financial() {
+                Id = reservation.Id,
+                ReservationValue = 0,
+                AdditionalValue = 0,
+                Status = "Em aberto",
+                Payment = ""
+            });
             await unitOfWork.Complete();
             return true;
         }

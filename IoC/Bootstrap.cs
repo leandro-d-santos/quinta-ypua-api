@@ -1,6 +1,7 @@
 ﻿using Data.Common;
 using Data.Context;
 using Domain.Common.Data;
+using IoC.Financial;
 using IoC.Guests;
 using IoC.Reservations;
 using IoC.Rooms;
@@ -19,6 +20,7 @@ namespace IoC
             services.AddRooms();
             services.AddGuests();
             services.AddReservations();
+            services.AddFinancial();
             services.RunMigrations();
         }
     }

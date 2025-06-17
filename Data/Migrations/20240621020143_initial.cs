@@ -92,17 +92,22 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_reservations_guestId",
-                table: "reservations",
-                column: "guestId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_reservations_roomId",
-                table: "reservations",
-                column: "roomId",
-                unique: true);
+            migrationBuilder.CreateTable(
+               name: "financial",
+               columns: table => new
+               {
+                   id = table.Column<string>(type: "TEXT", maxLength: 36, nullable: false),
+                   reservationValue = table.Column<string>(type: "Double", nullable: false),
+                   additionalValue = table.Column<string>(type: "Double", nullable: false),
+                   payment = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                   status = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                   createdAt = table.Column<DateTime>(type: "TEXT", nullable: true),
+                   updatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+               },
+               constraints: table =>
+               {
+                   table.PrimaryKey("PK_financial", x => x.id);
+               });
         }
 
         /// <inheritdoc />
@@ -119,6 +124,9 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "rooms");
+
+            migrationBuilder.DropTable(
+                name: "financial");
         }
     }
 }
