@@ -1,5 +1,6 @@
 ﻿using Application.Rooms.ViewModels;
 using Domain.Common.Data;
+using Domain.Reservations.Models;
 using Domain.Rooms.Models;
 using Domain.Rooms.Repositories;
 using System;

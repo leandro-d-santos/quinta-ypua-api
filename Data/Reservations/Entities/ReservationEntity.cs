@@ -22,8 +22,8 @@ namespace Data.Reservations.Entities
             return new ReservationEntity()
             {
                 Id = reservation.Id.ToString(),
-                CheckIn = reservation.CheckIn,
-                CheckOut = reservation.CheckOut,
+                CheckIn = reservation.CheckIn.Date,
+                CheckOut = reservation.CheckOut.Date,
                 NumberOfAdults = reservation.NumberOfAdults,
                 NumberOfChildren = reservation.NumberOfChildren,
                 Room = new RoomEntity(reservation.RoomId),
@@ -36,8 +36,8 @@ namespace Data.Reservations.Entities
             return new Reservation()
             {
                 Id = new Guid(Id),
-                CheckIn = CheckIn,
-                CheckOut = CheckOut,
+                CheckIn = CheckIn.Date,
+                CheckOut = CheckOut.Date,
                 NumberOfAdults = NumberOfAdults,
                 NumberOfChildren = NumberOfChildren,
                 RoomId = new Guid(Room.Id),

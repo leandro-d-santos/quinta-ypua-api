@@ -3,27 +3,42 @@ using Domain.Common.Data;
 using Domain.Financial.Repositories;
 using Domain.Reservations.Models;
 using Domain.Reservations.Repositories;
+using Domain.Rooms.Repositories;
 
 namespace Application.Reservations.Services
 {
     public sealed class ReservationService : IReservationService
     {
         private readonly IReservationRepository reservationRepository;
+        private readonly IRoomRepository roomRepository;
         private readonly IFinancialRepository financialRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public ReservationService(
             IReservationRepository reservationRepository,
             IFinancialRepository financialRepository,
+            IRoomRepository roomRepository,
             IUnitOfWork unitOfWork)
         {
             this.reservationRepository = reservationRepository;
+            this.roomRepository = roomRepository;
             this.financialRepository = financialRepository;
             this.unitOfWork = unitOfWork;
         }
 
         public async Task<bool> CreateAsync(ReservationViewModel reservationViewModel)
         {
+
+            if (reservationViewModel.CheckIn > reservationViewModel.CheckOut)
+            {
+                throw new ArgumentException("Período de reserva inválido.");
+            }
+
+            if (reservationRepository.ExistsInPeriodByRoom(reservationViewModel.RoomId, reservationViewModel.CheckIn.Date, reservationViewModel.CheckOut.Date))
+            {
+                throw new ArgumentException("Já existe uma reserva para esse quarto nesse período.");
+            }
+
             Reservation reservation = TransformToModel(reservationViewModel);
             reservation.Id = Guid.NewGuid();
             reservationRepository.Add(reservation);
@@ -36,6 +51,12 @@ namespace Application.Reservations.Services
             });
             await unitOfWork.Complete();
             return true;
+        }
+        
+        public async Task<List<RoomStatusDto>> GetCurrentRoomsStatusAsync()
+        {
+            List<string> roomsId = roomRepository.FindAll().Select(p => p.Id.ToString()).ToList();
+            return await reservationRepository.GetCurrentRoomsStatusAsync(roomsId);
         }
 
         public Task<IList<ReservationViewModel>> FindAllAsync()

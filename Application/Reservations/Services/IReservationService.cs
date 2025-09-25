@@ -1,4 +1,5 @@
 ﻿using Application.Reservations.ViewModels;
+using Domain.Reservations.Models;
 
 namespace Application.Reservations.Services
 {
@@ -9,5 +10,6 @@ namespace Application.Reservations.Services
         Task<ReservationViewModel?> FindByIdAsync(Guid id);
         Task<bool> UpdateAsync(ReservationViewModel reservationViewModel);
         Task<bool> RemoveAsync(Guid id);
+        Task<List<RoomStatusDto>> GetCurrentRoomsStatusAsync();
     }
 }

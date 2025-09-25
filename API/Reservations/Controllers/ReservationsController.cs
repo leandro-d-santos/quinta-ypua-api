@@ -49,5 +49,12 @@ namespace Api.Reservations.Controllers
         {
             return Ok(await reservationService.RemoveAsync(id));
         }
+
+        [Route("rooms")]
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentRoomsStatusAsync()
+        {
+            return Ok(await reservationService.GetCurrentRoomsStatusAsync());
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace Configuration.Middlewares
             if (_appSettings.IsDebug)
             {
                 response.Title = "Error";
-                response.Message = $"Exception: {exception.ToString()}";
+                response.Message = $"{exception.Message}";
                 response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
             else
