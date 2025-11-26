@@ -1,22 +1,13 @@
 services:
   - name: quinta-ypua-api
     type: web
-    runtime: dotnet
+    runtime: docker
     plan: free
-    region: frankfurt        
-    branch: main              
-    rootDir: API              
+    region: frankfurt
 
-    buildCommand: >
-      dotnet restore &&
-      dotnet publish -c Release -o out
-
-    startCommand: >
-      dotnet out/API.dll
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
 
     envVars:
-      - key: ASPNETCORE_URLS
-        value: http://0.0.0.0:${PORT}
-
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
